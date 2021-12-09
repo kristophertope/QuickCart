@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Index</title>
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <script>
+        /*
+                    WEEK 1
+        11/01/21    
+                    - Created Django project
+                    - Built placeholder index page
+                    WEEK 2
+        11/05/21    
+                    - Fixed issue with live view
+        11/10/21    
+                    - Built products and shopping cart pages
+                    - Built navigation
+                    - Added structure of product page
+                    - Many CSS improvements to header, navigation, and footer
+                    WEEK 3
+        11/12/21    
+                    - Built database and inventory item table
+                    - Added first inventory item to database for testing
+        11/15/21    
+                    - Successfully displayed database information within web app
+                    - Added admin page as GUI for database
+                    WEEK 4
+                    WEEK 5
+        11/26/21    
+                    - Attempted to trigger Python function with event listener -- not working as intended.
+        11/28/21    
+                    - Converted Python arrays to Javascript in-browser as a workaround for Django's many syntax and feature shortcomings.  
+                    - Added formatting for product cards so they will be ready for content and feature testing.
+        11/29/21    
+                    - Devised a way to evenly split products across both columns and implemented a string builder to display inventory on Products page.
+                    - After hours of fiddling, images uploaded through admin page now display on product page properly!
+                    - Added additional inventory objects
+                    - Removed wireframe placeholders, tweaked various positions, and styled buttons. 
+        11/30/21
+                    - Implemented stack to collect cart items
+                    - Hooked up "add" and "undo" buttons to stack functions
+                    - Began working on QuickCart display functionality -- needs debugging!
+                    WEEK 6
+        12/01/21   
+                    - Fixed QuickCart image output
+                    - Finished QuickCart styling & layout
+                    - Added persistence for cart items
+                    - Build string builder for cart table
+                    - Added basic table styling
+                    - Added cart delete function -- still needs debugging
+        12/02/21    
+                    - Fixed cart delete function
+        12/04/21    
+                    - Added footer row to cart table and added calculated total
+                    - Added submit button that clears the cart stack, confirms the order, and sends the user back to the product page
+                    - Fixed QuickCart to only display the last 5 items added
+        12/05/21
+                    - Implemented bubble sort by price for shopping cart
+        */
+    </script>
+    
+</head>
+<body>
+    
+    <header>
+        <h1>Office Supplies LTD</h1>
+    </header>
+
+    <nav>
+        <a id="active" href="/home">home</a>
+        <a href="/products">products</a>
+        <a href="/cart">cart</a>
+    </nav>
+
+    <main>
+    
+    </main>
+
+</body>
+</html>

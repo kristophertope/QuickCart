@@ -1,0 +1,132 @@
+{# shopping/templates/products.html #}
+{% load static %}
+{% load render_table from django_tables2 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <script>
+        let itemNumberArr = {{ item_number_list|safe }};
+        let itemNameArr = {{ item_name_list|safe }};
+        let itemPriceArr = {{ item_price_list|safe }};
+        let itemDescriptionArr = {{ item_description_list|safe }};
+        let itemImageArr = {{ item_image_list|safe }};
+
+        let cartStack = [];
+
+        //displays inventory items on page
+        function populateInventory() {
+            for (i in itemNumberArr) {
+                newCard =   `<div class="card">
+                                <div class="cardLcol">
+                                    <img src="/media/${itemImageArr[i]}"/>
+                                </div>
+                                <div class="cardRcol">
+                                    <h3>${itemNameArr[i]}</h3>
+                                    <p>${itemDescriptionArr[i]}</p>
+                                    <h5>$${itemPriceArr[i]} <br>
+                                    <button onclick=addToCart(${i})>add to cart</button>
+                                    </h5>
+                                </div
+                             </div>`;
+                if (i % 2 == 0) {
+                    document.querySelector("#lColumn").innerHTML += newCard;
+                }
+                else {
+                    document.querySelector("#rColumn").innerHTML += newCard;
+                }
+            }
+        }
+
+        //adds cart item
+        function addToCart(itemIndex) {
+            cartStack.push(itemIndex);
+            console.log(cartStack);
+            displayQuickCart();
+            saveCart();
+        }
+
+        //removes cart item
+        function popCart(itemIndex) {
+            cartStack.pop();
+            displayQuickCart();
+            saveCart();
+        }
+
+        //save cartStack to local storage
+        function saveCart() {
+            let cartJSON = JSON.stringify(cartStack);
+            localStorage.setItem('cart', cartJSON);
+        }
+
+        //get existing cartStack from local storage
+        function getCart() {
+            let cartJSON = localStorage.getItem('cart');
+            cartStack = JSON.parse(cartJSON);
+
+        }
+
+        //displays items in QuickCart
+        function displayQuickCart() {
+            let quickCart = document.querySelector('.quickCart');
+            quickCart.innerHTML="";
+
+            let quickCartSize = cartStack.length;
+            if (quickCartSize > 5) quickCartSize = 5;
+
+            for (let i = cartStack.length; i > 0; i--){
+                if (quickCartSize == 0) break;
+                let itemImage = document.createElement("img");
+                itemImage.src = `/media/${itemImageArr[cartStack[i - 1]]}`;
+                quickCart.appendChild(itemImage);
+                quickCartSize--;
+            }
+        }
+
+    </script>
+
+</head>
+<body onload="populateInventory(), getCart(), displayQuickCart()">
+    
+    <header>
+        <h1>Office Supplies LTD</h1>
+    </header>
+
+    <nav>
+        <a href="/home">home</a>
+        <a id="active" href="/products">products</a>
+        <a href="/cart">cart</a>
+    </nav>
+
+    <main>
+        <div class="row">
+
+            <div class="column" id="lColumn">
+                <!--product cards go here-->    
+            </div> 
+
+            <div class="column" id="rColumn">
+                <!--product cards go here-->
+            </div> 
+
+        </div>
+
+    </main>
+
+    <footer>
+        <h3>QuckCart®</h3>
+        <div class="quickCart">
+            <!-- <img src="/media/images/deli.jpg"/> -->
+        </div>
+        <button onclick="popCart()">undo</button>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+{% load static %}
+{% load render_table from django_tables2 %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <script>
+        let itemNumberArr = {{ item_number_list|safe }};
+        let itemNameArr = {{ item_name_list|safe }};
+        let itemPriceArr = {{ item_price_list|safe }};
+        let itemDescriptionArr = {{ item_description_list|safe }};
+        let itemImageArr = {{ item_image_list|safe }};
+
+        let cartStack = [];
+
+        //get existing cartStack from local storage
+        function getCart() {
+            let cartJSON = localStorage.getItem('cart');
+            cartStack = JSON.parse(cartJSON);
+        }
+
+        //save cartStack to local storage
+        function saveCart() {
+            let cartJSON = JSON.stringify(cartStack);
+            localStorage.setItem('cart', cartJSON);
+        }
+
+        function deleteItem(itemNum) {
+            itemIndex = (cartStack.indexOf(itemNum));
+            cartStack.splice(itemIndex, 1);
+            saveCart();
+            printCart();
+        }
+
+        //build & print shopping cart table
+        function printCart() {
+            let cartRow = "";
+            let total = 0;
+            for (i of cartStack) {
+                cartRow +=  `<tr>
+                                <td>${itemNumberArr[i]}</td>
+                                <td>${itemNameArr[i]}</td>
+                                <td>$${itemPriceArr[i]}</td>
+                                <td><button onclick="deleteItem(${i})">delete</button></td>
+                            </tr>`;
+                total += itemPriceArr[i];
+            }
+            document.querySelector('#cartItems').innerHTML = cartRow;
+            document.querySelector('#total').innerHTML = formatToCurrency(total);
+        }
+
+        //bubble sort
+        function sortByPrice() {
+            let n = cartStack.length;
+            for (let i = 0; i < n - 1; i++) {
+                for (let j = 0; j < n-i-1; j++) {
+                    if (itemPriceArr[cartStack[j]] > itemPriceArr[cartStack[j+1]]) {
+                        let tmp = cartStack[j];
+                        cartStack[j] = cartStack[j+1];
+                        cartStack[j+1] = tmp;
+                    }
+                }
+            }
+            printCart();
+        }
+
+        class ListNode {
+            constructor(data) {
+              this.data = data;
+              this.next = null;
+            }
+        }
+
+        class LinkedList {
+            constructor() {
+              this.head = null;
+              this.size = 0;
+            }
+        }
+
+        function formatToCurrency(amount){
+            return '$' + (amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'); 
+        }
+
+        function submitOrder() {
+            if (cartStack.length > 0) {
+                cartStack = [];
+                saveCart();
+                printCart();
+                alert("Order Submitted!");
+                location.href = '/products';
+            }
+            else {
+                alert("Order cannot be completed because your shopping cart is empty.");
+            }
+        }
+
+    </script>
+
+</head>
+<body onload="getCart(), printCart()">
+    
+    <header>
+        <h1>Office Supplies LTD</h1>
+    </header>
+
+    <nav>
+        <a href="/home">home</a>
+        <a href="/products">products</a>
+        <a id="active" href="/cart">cart</a>
+    </nav>
+
+    <main>
+        
+        <div id="cartContainer">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item #</th>
+                        <th>Name</th>
+                        <th onclick="sortByPrice()">Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="cartItems">
+                    <!-- printCart() adds rows here -->
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td style="text-align: right;">Total:</td>
+                        <td id="total"></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div id="submit">
+            <button onclick="submitOrder()">Submit Order</button>
+        </div>
+
+    </main>
+
+</body>
+</html>

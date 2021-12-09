@@ -1,0 +1,193 @@
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Monoton&display=swap');
+
+* {
+  box-sizing: border-box;
+  color: #333;
+  font-family: sans-serif;
+}
+
+header h1 {
+  font-family: "bungee";
+  font-size: 36px;
+  color: rgb(25,25,25);
+}
+
+nav {
+  display: flex;
+  color: #333;
+  flex-direction: row;
+  background-color: #333;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  line-height: 25px;
+}
+
+
+nav a {
+  font-family: "bungee";
+  color: rgb(215,215,215);
+  font-size: 22px;
+  padding: 14px 20px;
+  text-decoration: none;
+  text-align: center;
+  transition: all 1s;
+}
+
+#active {
+  color: rgb(255,128,128);
+}
+
+nav a:hover {
+  color: rgb(255,128,128);
+  -ms-transform: scale(1.2);
+  -moz-transform: scale(1.2); 
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+/* Product Listings */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 15px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  flex: 50%;
+  padding: 20px;
+}
+
+.card {
+  display: flex;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  width: 85%;
+  min-height: 200px;
+  margin: 10px 0 10px 0;
+  padding: 10px;
+  transition: all .75s;
+}
+
+.card:hover {
+  border-color: #333;
+}
+
+.cardLcol {
+  display: flex;
+  width: 200px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardLcol img {
+  width: 195px;
+  height: 195px;
+}
+
+.cardRcol {
+  width: 100%;
+  margin: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  background-color: white;
+  border: 2px solid #333;
+  border-radius: 7px;
+  margin-top: 5px;
+  padding: 3px 16px;
+  transition: all .5s;
+}
+
+button:hover {
+  background-color: #333;
+  color: white;
+}
+
+.productimgthumb {
+  background-color: #aaa;
+  width: 100px;
+  height: 100px;
+  padding: 20px;
+}
+
+footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  min-height: 50px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, .85);
+  border-top: 2px solid #333;
+}
+
+footer h3 {
+  margin: 3px;
+}
+
+.quickCart {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
+}
+
+.quickCart img {
+  height: 80px;
+  width: 80px;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 5px;
+  margin: 0 2px;
+}
+
+#cartContainer {
+  margin: 15px;
+  display: flex;
+  justify-content: center;
+
+}
+
+table, th, td{
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 0px 20px;
+  font-size: xx-large;
+}
+
+td {
+  font-size: x-large;
+  text-align: center;
+}
+
+tfoot tr td {
+  font-weight: 700;
+  border-color: transparent;
+}
+
+#submit {
+  display: flex;
+  justify-content: center;
+}
+
+#submit button {
+  font-size: xx-large;
+}
+
+@media screen and (max-width: 1000px) {
+  .row {
+    flex-direction: column;
+  }
+}
