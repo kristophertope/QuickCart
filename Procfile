@@ -1,1 +1,1 @@
-web: gunicorn /final-project/final-project wsgi.py
+web: gunicorn --chdir /final-project/final-project wsgi.py
