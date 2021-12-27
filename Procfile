@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath final-project.wsgi
+web: gunicorn --pythonpath final-project.wsgi:application
