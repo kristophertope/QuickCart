@@ -1,1 +1,1 @@
-web: gunicorn quick-cart-app.wsgi --log-file -
+web: gunicorn QuickCart.wsgi --log-file -
