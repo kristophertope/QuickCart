@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath /final-project quick-cart-app.wsgi
+web: gunicorn --pythonpath /final-project/final-project quick-cart-app QuickCart.wsgi
