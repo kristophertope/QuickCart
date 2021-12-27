@@ -1,1 +1,1 @@
-web: gunicorn --chdir /QuickCart/final-project/final-project wsgi.py
+web: gunicorn --chdir /final-project/ quick-cart-app.wsgi
