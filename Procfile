@@ -1,1 +1,1 @@
-web: gunicorn final_project/final_project.wsgi --log-file -
+web: gunicorn --pythonpath 'QuickCart/final_project/final_project' final_project.wsgi --log-file -
